@@ -38,13 +38,19 @@
 				.addClass('ik_tooltip')
 				.attr({
 					'id': id,
+					'role': 'tooltip', // tooltip role
+        			'aria-hidden': 'true', // hidden by default to prevent it from being read twice
+        			'aria-live': 'polite' // make it live region
 				});
 			
 			$elem
 				.css('position', 'relative')
 				.removeAttr('title') // remove title to prevent it from being read
 				.after($tooltip)
-				.on('mouseover', function(event) {
+				.attr({
+					'tabindex': 0 // focusable by keyboard
+				})
+				.on('mouseover focus', function(event) {
 					
 					var y, x;
 					
@@ -66,6 +72,9 @@
 							'top': y, 
 							'left': x
 						})
+						.attr({
+							'aria-hidden': 'false'
+						})
 						.addClass('visible');
 				})
 				.on('mouseout', function(event) {
@@ -73,10 +82,31 @@
 					if (!$(event.currentTarget).is(':focus') ) { // hide tooltip if current element is not focused
 						
 						$tooltip
+							.attr({
+								'aria-hidden': 'true'
+							})
 							.removeClass('visible mouseover');					
 					}
 										
 				})
+				.on('blur', function(event) {              
+					if (!$tooltip.hasClass('mouseover') ) { // hide tooltip if mouse is not over the current element               
+					$tooltip
+						.attr({
+							'aria-hidden': 'true'
+						})
+						.removeClass('visible');       
+					}
+				})
+				.on('keyup', function(event) {         
+					if(event.keyCode == ik_utils.keys.esc) { // hide when escape key is pressed
+						$tooltip
+							.attr({
+								'aria-hidden': 'true'
+							})
+							.removeClass('visible');
+					}              
+				});
 		}
 	};
 	
