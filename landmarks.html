@@ -13,56 +13,56 @@
 <div id="top-bar">&nbsp; </div>
 <div class="page_wrapper">
 
-<div id="header">
+<div id="header" role="banner">
 	<div id="course_title_container" style="left:1em;">		
 	    <h1 id="section-title">Our Community Website</h1>
 	</div>
 </div>
 
-<div class="" style="z-index: auto; position: static; top: auto;" id="lrg_topnav">
-    <div style="width: 100%;" id="topnavlistcontainer" aria-label="main navigation tabs">
+<div class="" style="z-index: auto; position: static; top: auto;" id="lrg_topnav" >
+    <div style="width: 100%;" id="topnavlistcontainer" role="navigation" aria-label="main navigation tabs">
         <a name="main-nav" id="main-nav"></a>
-        <ul style="" id="topnavlist">
-        <li><a href="index.html" accesskey="1" title="Back to Index Alt+1">Back to Index</a></li>
-            <li><a href="landmarks.html" accesskey="2" title="Join Alt+2" class="active">Join</a></li>
-            <li><a href="" class="fake" accesskey="3" title="Photo Gallery Alt+3">Photo Gallery</a></li>
-            <li><a href="" class="fake" accesskey="4" title="Networking Alt+4">Networking</a></li>
-            <li><a href="" class="fake" accesskey="5" title="Login Alt+5">My Choice</a></li>
-            <li><a href="" class="fake" accesskey="6" title="Exercise Home Alt+6">Exercises</a></li> 
+        <ul style="" id="topnavlist" role="menu">
+            <li><a href="index.html" accesskey="1" role="menuitem" title="Back to Index Alt+1">Back to Index</a></li>
+            <li><a href="landmarks.html" accesskey="2" role="menuitem"  title="Join Alt+2" class="active">Join</a></li>
+            <li><a href="" class="fake" accesskey="3" role="menuitem" title="Photo Gallery Alt+3">Photo Gallery</a></li>
+            <li><a href="" class="fake" accesskey="4" role="menuitem" title="Networking Alt+4">Networking</a></li>
+            <li><a href="" class="fake" accesskey="5" role="menuitem" title="Login Alt+5">My Choice</a></li>
+            <li><a href="" class="fake" accesskey="6" role="menuitem" title="Exercise Home Alt+6">Exercises</a></li> 
         </ul>
     </div> 
 </div>
 
-<div class="logoutbar">&nbsp; <input type="text" class="input"><input type="submit" value="search"></div>
-<div class="crumbcontainer">
+<div class="logoutbar" role="search">&nbsp; <input type="text" class="input" aria-label="search text" ><input type="submit" value="search"></div>
+<div class="crumbcontainer" role="separator">
 		<div id="breadcrumbs" tabindex="0" aria-label="breadcrumb links">&nbsp;</div>
 </div>
 <div id="contentwrapper">
-    <div id="lrg_content">
+    <div id="lrg_content" >
 		<div id="leftcolumn">
 		  <a id="menu"></a>
-		     <div id="side-menu" aria-label="left side menu" accesskey="0">
+		     <div id="side-menu" role="navigation" aria-label="left side menu" accesskey="0">
 		        <br/>
                 <h2 class="box"><span>Networking</span></h2>
-                <div class="box" id="menu_Networking">
-                    <ul class="social_side_menu">
-                        <li><a href="" class="fake">My Network</a></li>
-                        <li><a href="" class="fake">My Contacts</a></li>
-                        <li><a href="" class="fake">Network Profile</a></li>
-                        <li><a href="" class="fake">Gadgets</a></li>
-                        <li><a href="" class="fake">Network Groups</a></li>
-                        <li><a href="" class="fake">Settings</a></li>
+                <div class="box" id="menu_Networking"  >
+                    <ul class="social_side_menu" role="menu">
+                        <li><a href="" class="fake" role="menuitem">My Network</a></li>
+                        <li><a href="" class="fake" role="menuitem">My Contacts</a></li>
+                        <li><a href="" class="fake" role="menuitem">Network Profile</a></li>
+                        <li><a href="" class="fake" role="menuitem">Gadgets</a></li>
+                        <li><a href="" class="fake" role="menuitem">Network Groups</a></li>
+                        <li><a href="" class="fake" role="menuitem">Settings</a></li>
                     </ul>
                     <div class="divider"></div>
                 </div>
-			<br/>
+			    <br/>
                 <h2 class="box"><span>People Online</span></h2>
                 <div class="box" id="menu_UsersOnline">
                     <ul style="padding: 0px; list-style: none;">
                         <li style="padding: 3px 0px;" id="mylogin">No one logged in</li>
                     </ul>
                 </div>
-			<br/>
+			    <br/>
 		    </div>
 		</div>
     </div>	<!-- //end of the left column -->	
@@ -72,7 +72,7 @@
 	<br style="clear:both;">
 	<a id="top"></a>
 
-<div class="profile">
+<div class="profile" role="main" aria-label="Join Our Community Form">
 <h2>Join our community</h2>
 <div id="feedback">&nbsp;</div>
 <form id="join_form">
@@ -212,10 +212,10 @@
 </form>
 <br  style="clear:both;"/>
 
-		<br style="width:100%;clear:both;" />
+<br style="width:100%;clear:both;" />
 
-	</div>
-<div id="advertising">
+</div>
+<div id="advertising" role="complementary" aria-label="Advertise Section">
 <h2>Advertising</h2>
 <div>
 <img src="images/rum_cover.jpg" alt="" />
@@ -229,7 +229,7 @@
 <p><br><br>&nbsp;</p>
 </div>
 
-<div id="footer"> Copyright &copy; <a href="" class="fake">Chang School.</a>
+<div id="footer" role="contentinfo"> Copyright &copy; <a href="" class="fake">Chang School.</a>
 </div>
 
 </body>
