@@ -111,7 +111,8 @@
 				'aria-selected': true,
 				tabindex: 0
 			})
-			.addClass('selected');
+			.addClass('selected')
+			.focus();
 		
 		$panels // hide all panels
 			.attr({
@@ -136,7 +137,6 @@
 		$elem = plugin.element;
 		$tabs = plugin.tabs;
 		$panels = plugin.panels;
-		console.log("keydown "+ event.keyCode);
 		switch (event.keyCode) {
 			case ik_utils.keys.left:
 			case ik_utils.keys.up:
