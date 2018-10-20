@@ -232,24 +232,34 @@
         plugin = event.data.plugin;
         $elem = plugin.element;
         $me = $(event.currentTarget);
-       
-        switch (event.keyCode) {
+		$visibleitems = $elem.find('[role=treeitem]:visible');
+		curindex = $visibleitems.index($me);
+        switch (event.keyCode) {						
+				
+			case ik_utils.keys.home:
+				if ($visibleitems.length > 0 ) {
+					plugin.selectItem( $($visibleitems[0]), plugin );
+				}
+				break;
+
+			case ik_utils.keys.end:
+				if ($visibleitems.length > 0 ) {
+                    plugin.selectItem( $($visibleitems[$visibleitems.length-1]), plugin );
+				}
+				break;
+
             case ik_utils.keys.down:
                 event.preventDefault();
                 event.stopPropagation();
-               
-                $visibleitems = $elem.find('[role=treeitem]:visible');
-                newindex = $visibleitems.index($me) + 1;
-               
+				newindex = $visibleitems.index($me) + 1;               
                 if (newindex < $visibleitems.length) {
                     plugin.selectItem( $($visibleitems[newindex]), plugin );
                 }
-                break;
+				break;
+				
             case ik_utils.keys.up:
                 event.preventDefault();
                 event.stopPropagation();
-               
-				$visibleitems = $elem.find('[role=treeitem]:visible');
 				newindex = $visibleitems.index($me) - 1;
                
                 if (newindex > -1) {

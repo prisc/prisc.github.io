@@ -196,9 +196,9 @@
 		
 		plugin.collapseAll(plugin);
 	
-		if ($elem.has('a').length) {
-			alert('Menu item ' + $elem.find('>a').text() + ' selected');
-		}
+		// if ($elem.has('a').length) {
+		// 	alert('Menu item ' + $elem.find('>a').text() + ' selected');
+		// }
 		
 	};
 
@@ -214,7 +214,6 @@
 		$parentitem = $parentmenu.parent('li');
 		   
 		switch (event.keyCode) {
-		   
 			case ik_utils.keys.right:			   
 				event.preventDefault();			   
 				if ($current.parents('ul').length == 1) {
@@ -269,11 +268,11 @@
 			
 		case ik_utils.keys.enter:           
             plugin.activateMenuItem(event);           
-            break;
+			break;
        
         case ik_utils.keys.tab:           
             plugin.collapseAll(plugin);           
-            break;
+			break;
     }
 }
 	

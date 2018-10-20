@@ -2,7 +2,8 @@
 	
 	var pluginName = 'ik_carousel',
 		defaults = { // default settings
-			'animationSpeed' : 3000
+			'animationSpeed' : 3000,
+			'instructions': 'Carousel widget. Use left and rights arrows to navigate between slides.',
 		};
 	 
 	/**
@@ -34,14 +35,22 @@
 		
 		$elem
 			.attr({
-				'id': id
+				'id': id,
+				'role': 'region',
+				'tabindex': 0, 
+				'aria-describedby': id + '_instructions'
 			})
 			.addClass('ik_carousel')
+			.on('keydown', {'plugin': plugin}, plugin.onKeyDown)
 			.on('mouseenter', {'plugin': plugin}, plugin.stopTimer)
-			.on('mouseleave', {'plugin': plugin}, plugin.startTimer)
+			.on('mouseleave', {'plugin': plugin}, plugin.startTimer);
+
+
 		
 		$controls = $('<div/>')
-
+			.attr({
+				'aria-hidden': 'true' // hide controls from screen readers
+			})
 			.addClass('ik_controls')
 			.appendTo($elem);
 				
@@ -67,7 +76,9 @@
 				$me = $(el);
 				$src = $me.find('img').remove().attr('src');
 				
-				$me.css({
+				$me.attr({
+					'aria-hidden': 'true' 
+				}).css({
 						'background-image': 'url(' + $src + ')'
 					});	
 				
@@ -75,6 +86,15 @@
 					.on('click', {'plugin': plugin, 'slide': i}, plugin.gotoSlide)
 					.appendTo($navbar);
 			});
+
+			$('<div/>') // add instructions for screen reader users
+			.attr({
+				'id': id + '_instructions',
+				'aria-hidden': 'true'
+			})
+			.text(this.options.instructions)
+			.addClass('ik_readersonly')
+			.appendTo($elem);
 		
 		plugin.navbuttons = $navbar.children('li');
 		plugin.slides.first().addClass('active');
@@ -95,12 +115,14 @@
 		
 		$elem = $(this);
 		plugin = event.data.plugin;
-		
+
+		if (event.type === 'focusout') {
+			plugin.element.removeAttr('aria-live');
+		}		
 		if(plugin.timer) {
 			clearInterval(plugin.timer);
 			plugin.timer = null;
-		}
-		
+		}		
 		plugin.timer = setInterval(plugin.gotoSlide, plugin.options.animationSpeed, {'data':{'plugin': plugin, 'slide': 'right'}});
 		
 	};
@@ -115,8 +137,12 @@
 	Plugin.prototype.stopTimer = function (event) {
 		
 		var plugin = event.data.plugin;
+		if (event.type === 'focusin') {
+			plugin.element.attr({'aria-live': 'polite'});
+		}
 		clearInterval(plugin.timer);
 		plugin.timer = null;
+		
 		
 	};
 	
@@ -166,10 +192,14 @@
 			next = event.data.next;
 			dir = event.data.dir;
 			
-			active.off( ik_utils.getTransitionEventName() )
+			active.attr({
+				'aria-hidden': 'true'
+			}).off( ik_utils.getTransitionEventName() )
 				.removeClass(direction + ' active');
 				
-			next.removeClass('next')
+			next.attr({
+				'aria-hidden': 'false'
+			}).removeClass('next')
 				.addClass('active');
 			
 		});
@@ -177,6 +207,26 @@
 		plugin.navbuttons.removeClass('active').eq(n).addClass('active');
 		
 	}
+
+	Plugin.prototype.onKeyDown = function (event) {
+       
+		var plugin = event.data.plugin;
+		   
+		switch (event.keyCode) {
+			   
+			case ik_utils.keys.left:
+				event.data = {'plugin': plugin, 'slide': 'left'};
+				plugin.gotoSlide(event);
+				break;
+			case ik_utils.keys.right:
+				event.data = {'plugin': plugin, 'slide': 'right'};
+				plugin.gotoSlide(event);
+				break;
+			case ik_utils.keys.esc:
+				plugin.element.blur();
+				break;
+			}
+		}
 	
 	$.fn[pluginName] = function ( options ) {
 		
