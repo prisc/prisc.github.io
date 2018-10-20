@@ -113,9 +113,6 @@
 			})
 			.addClass('selected');
 		
-		$($tabs[ind]).focus(); // move focus to current tab if reached by mouse or keyboard
-	
-		
 		$panels // hide all panels
 			.attr({
 				'aria-hidden': true
@@ -126,8 +123,7 @@
 			.attr({
 				'aria-hidden': false
 			})
-			.show(); 
-		
+			.show();		
 	}
 
 	Plugin.prototype.keyDown = function (event) {
