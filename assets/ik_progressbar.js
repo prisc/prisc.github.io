@@ -40,7 +40,7 @@
 				'aria-describedby': id + '_instructions' // add aria-describedby attribute
 			})
 			.addClass('ik_progressbar')
-			.on('keydown.ik', {'plugin': this}, this.onKeyDown);
+			.on('keydown', {'plugin': this}, this.onKeyDown);
 		
 		this.fill = $('<div/>')
 			.addClass('ik_fill');
@@ -53,14 +53,14 @@
 			.addClass('ik_readersonly')
 			.appendTo(this.element);
 
-		$('<div/>') // add div element to be used with aria-described attribute of the progressbar
+		this.instruction = $('<div/>') // add div element to be used with aria-described attribute of the progressbar
 			.text(this.options.instructions) // get instruction text from plugin options
-				.addClass('ik_readersonly') // hide element from visual display
-				.attr({
-				'id': id + '_instructions',
-				'aria-hidden': 'true'  // hide element from screen readers to prevent it from being read twice
-		})
-		.appendTo(this.element);
+			.addClass('ik_readersonly') // hide element from visual display
+			.attr({
+			'id': id + '_instructions',
+			'aria-hidden': 'true'  // hide element from screen readers to prevent it from being read twice
+			})
+			.appendTo(this.element);
 
 		$('<div/>')
         .addClass('ik_track')
@@ -148,6 +148,9 @@
 		
 		this.setValue(0);
 		this.updateDisplay();
+		this.instruction.attr({
+			'aria-hidden': 'false'
+		});
 		this.notify();
 	
 	};
@@ -159,7 +162,7 @@
 	* @param {object} event.data - Event data.
 	* @param {object} event.data.plugin - Reference to plugin.
 	*/
-	Plugin.prototype.onKeyDown = function(event) {		
+	Plugin.prototype.onKeyDown = function(event) {	
 		switch(event.keyCode) {			
 			case ik_utils.keys.space:
 			case ik_utils.keys.enter:
