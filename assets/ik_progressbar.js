@@ -47,6 +47,7 @@
 			
 		this.notification = $('<div/>') // add div element to be used to notify about the status of download
 			.attr({
+				'aria-role': 'region', // make it a live region
 				'aria-live': 'assertive', // set notofocation priority to high
 				'aria-atomic': 'additions' // notify only about newly added text
 			})	
@@ -54,12 +55,12 @@
 			.appendTo(this.element);
 
 		this.instruction = $('<div/>') // add div element to be used with aria-described attribute of the progressbar
-			.text(this.options.instructions) // get instruction text from plugin options
-			.addClass('ik_readersonly') // hide element from visual display
 			.attr({
 			'id': id + '_instructions',
 			'aria-hidden': 'true'  // hide element from screen readers to prevent it from being read twice
 			})
+			.text(this.options.instructions) // get instruction text from plugin options
+			.addClass('ik_readersonly') // hide element from visual display
 			.appendTo(this.element);
 
 		$('<div/>')

@@ -33,10 +33,14 @@
 			.attr({
 				'id': id,
 				'tabindex': -1, // add current element to tab oder
-				'aria-describedby': id + '_instructions' // add aria-describedby attribute 
+				'aria-describedby': id + '_instructions', // add aria-describedby attribute 
+				'role': 'progressbar', 
+				'aria-valuenow': 0, 
+				'aria-valuemin': 0, 
+				'aria-valuemax': this.options.max, 
 			})
 			.addClass('ik_progressbar')
-			.on('keydown.ik', {'plugin': this}, this.onKeyDown);
+			.on('keydown', {'plugin': this}, this.onKeyDown);
 		
 		this.fill = $('<div/>')
 			.addClass('ik_fill');
@@ -51,12 +55,12 @@
 			.appendTo(this.element);
 		
 		$('<div/>') // add div element to be used with aria-described attribute of the progressbar
-			.text(this.options.instructions) // get instruction text from plugin options
-			.addClass('ik_readersonly') // hide element from visual display
 			.attr({
 				'id': id + '_instructions', 
 				'aria-hidden': 'true'  // hide element from screen readers to prevent it from being read twice
-			})
+			})	
+			.text(this.options.instructions) // get instruction text from plugin options
+			.addClass('ik_readersonly') // hide element from visual display		
 			.appendTo(this.element);
 			
 		$('<div/>')
@@ -97,7 +101,7 @@
 		
 		var value;
 		
-		value = Number( this.element.data('value') );
+		value = Number( this.element.attr('aria-valuenow') ); // accessible
 				
 		return parseInt( value );
 		
@@ -137,10 +141,9 @@
 			val = n;
 		}
 		
-		this.element
-			.data({
-				'value': parseInt(val) 
-			});
+		this.element.attr({ 
+            'aria-valuenow': val
+		});
 		
 		this.updateDisplay();
 		
